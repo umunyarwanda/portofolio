@@ -4,12 +4,60 @@ $blck: #08203a;
 $themepnk: salmon;
 $bg: linear-gradient(103deg, #e3edf7, #ffffff);
 $allbg: #e3edf7;
+
+$bgpink: aquamarine;
+
+$bgcyan: cyan;
+$bgblanche: blanchedalmond;
+$bgsteel: lightsteelblue;
+// $allbgdark: #212121;
+
+
+//DarkMode
+$blckdark: white;
+$allbgdark: hsl(230, 17%, 14%);
+$mostshdwdark: rgba(94, 115, 119, 0.3) -6px -6px 10px 0px, rgba(99, 132, 139, 0.3) 4px 3px 15px 0px;
+$shdw1dark: rgba(99, 132, 139, 0.3) -6px -6px 10px 0px,rgba(127, 163, 199, 0.3) 4px 3px 15px 0px;
+$bgdark: linear-gradient(103deg, #435c74, hsl(230, 17%, 14%));
+
+:root{
+    --shdw1: #{$shdw1};
+    --mostshdw: #{$mostshdw};
+    --blck: #{$blck};
+    --bg: #{$bg};
+    --allbg: #{$allbg};
+    // color: ;
+}
+.dark{
+    --allbg: #{$allbgdark};
+    --mostshdw: #{$mostshdwdark};
+    --shdw1: #{$shdw1dark};
+    --bg: #{$bgdark};
+    --blck: #{$blckdark};
+}
+
+.pink{
+    --bg: #{$bgpink};
+}
+
+.cyan{
+    --bg: #{$bgcyan};
+}
+
+.blanche {
+    --bg: #{$bgblanche};
+}
+
+.steel{
+    --bg: #{$bgsteel}
+}
 *{
     box-sizing: border-box;
     margin: 0;
     padding: 0;
     font-family: poppins;
-    color: $blck;
+    color: var(--blck);
+    transition: .6s;
 }
 body{
     position: relative;
@@ -40,7 +88,7 @@ html{
     svg,img{
         width: 30px;
         height: 30px;
-        fill: $blck;
+        fill: var(--blck);
     }
     .siders {
         writing-mode: vertical-rl;
@@ -69,15 +117,89 @@ html{
     }
 }
 section{
-    background: $allbg;
+    background-color: var(--allbg);
+}
+.fixedColor{
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    background: black;
+    z-index: 400;
+    padding: 5px 10px;
+    right: -43px;
+    width: fit-content;
+    border-radius: 0px 0 0 5px;
+    .set{
+        width: 30px;
+        height: 30px;
+        position: absolute;
+        right: 100%;
+        top: 0;
+        padding: 5px;
+        background: black;
+        border-radius: 5px 0px 0 5px;
+        svg{
+            width: 100%;
+            height: 100%;
+            animation-name: rot;
+            animation-duration: 5s;
+            animation-iteration-count: infinite;
+            animation-timing-function: linear;
+            fill: white;
+            
+            @keyframes rot {
+                from {
+                    transform: rotate(0);
+                }
+            
+                to {
+                    transform: rotate(360deg);
+                }
+            
+            }
+        }
+    }
+    .color{
+        width: 20px;
+        height: 20px;
+        margin: 10px 0;
+        svg{
+            width: 100%;
+            height: 100%;
+        }
+        &:nth-of-type(1){
+            svg{
+                fill: cyan;
+            }
+        }
+        &:nth-of-type(2) {
+            svg {
+                fill:blanchedalmond;
+            }
+        }
+        &:nth-of-type(3) {
+            svg {
+                fill:lightsteelblue;
+            }
+        }
+        &:nth-of-type(4) {
+            svg {
+                fill:aquamarine;
+            }
+        }
+    }
+}
+.fixedOn{
+    left: unset;
+    right: 0;
 }
 nav{
     padding: 28px 0;
     position: sticky;
     top: 0;
     z-index: 100;
-    box-shadow: $shdw1;
-    background: $bg;
+    box-shadow: var(--shdw1);
+    background: var(--bg);
     @media (max-width: 833px){
         padding: 15px 0;
     }
@@ -94,7 +216,6 @@ nav{
                 display: flex;
                 position: fixed;
                 bottom: -300px;
-                background: green;
                 width: 100%;
                 left: 0;
                 padding: 27px 10px;
@@ -104,8 +225,8 @@ nav{
                 justify-content: center;
                 row-gap: 10px;
                 border-radius: 20px 20px 0 0;
-                background: $bg;
-                box-shadow: $mostshdw;
+                background: var(--bg);
+                box-shadow: var(--mostshdw);
                 border-top: 2px solid $themepnk;
             }
             .active{
@@ -128,10 +249,10 @@ nav{
                     align-items: center;
                     padding: 10px 14px;
                     font-size: 15px;
-                    background: $bg;
-                    box-shadow: $mostshdw;
+                    background: var(--bg);
+                    box-shadow: var(--mostshdw);
                     border-radius: 5px;
-                    color: $blck;
+                    color: var(--blck);
                     &:hover:not(.active){
                         background: $blck;
                         color: $allbg;
@@ -161,48 +282,62 @@ nav{
             }
         }
         .nav-menu {
-            display: none;
+            display: flex;
+            align-items: center;
+            column-gap: 10px;
             cursor: pointer;
-            .bar{
-                display: flex;
-                height: 5px;
-                margin: 2px 0;
-                width: 35px;
-                background: $themepnk;
-                position: relative;
-                transition: .6s;
-            }
-            .bar2{
-                opacity: 1;
-            }
-            .bar1,.bar3{
-                transform: rotate(0deg);
-                top: 0px;
+            .nav-menu-menus{
+                display: none;
+                @media(max-width: 833px){
+                    display: block;
+                    margin-left: 5px;
+                }
+                .bar {
+                    display: flex;
+                    height: 5px;
+                    margin: 2px 0;
+                    width: 35px;
+                    background: $themepnk;
+                    position: relative;
+                    transition: .6s;
+                }
+                
+                .bar2 {
+                    opacity: 1;
+                }
+                
+                .bar1,
+                .bar3 {
+                    transform: rotate(0deg);
+                    top: 0px;
+                }
             }
             @media (max-width: 833px){
                 display: flex;
-                flex-direction: column;
                 justify-content: center;
                 align-items: center;
             }
-        }
-        .nav-menu-toggled{
-            .bar1{
-                transform: rotate(45deg);
-                top: 10px;
-            }
-            .bar2{
-                opacity: 0;
-            }
-            .bar3 {
-                transform: rotate(-45deg);
-                top: -8px;
+            .nav-menu-toggled {
+                .bar1 {
+                    transform: rotate(45deg);
+                    top: 10px;
+                }
+        
+                .bar2 {
+                    opacity: 0;
+                }
+        
+                .bar3 {
+                    transform: rotate(-45deg);
+                    top: -5px;
+                }
+                
             }
         }
     }
 }
 .home{
-    background: $bg;
+    background: var(--bg);
     .home-content{
         padding: 7rem 0;
         display: flex;
@@ -265,13 +400,14 @@ nav{
                         text-decoration: none;
                         justify-content: center;
                         align-items: center;
-                        background: $bg;
-                        box-shadow: $mostshdw;
+                        background: var(--bg);
+                        box-shadow: var(--mostshdw);
                 
                         svg {
                             width: 20px;
                             height: 20px;
                             margin-left: 10px;
+                            fill: var(--blck);
                         }
                     }
                 }
@@ -350,12 +486,12 @@ nav{
                     justify-content: center;
                     align-items: center;
                     border-radius: 8px;
-                    box-shadow: $mostshdw;
+                    box-shadow: var(--mostshdw);
                     .about-card-img{
                         width: 70px;
                         height: 70px;
-                        box-shadow: $mostshdw;
-                        background: $bg;
+                        box-shadow: var(--mostshdw);
+                        background: var(--bg);
                         padding: 13px;
                         border-radius: 50%;
                         display: flex;
@@ -417,7 +553,7 @@ nav{
                     justify-content: center;
                     align-items: center;
                     padding: 30px;  
-                    box-shadow: $mostshdw;
+                    box-shadow: var(--mostshdw);
                     border-radius: 20px;
                     @media (max-width: 833px){
                         width: 100%;
@@ -477,7 +613,7 @@ nav{
                 border-radius: 5px;
                 overflow: hidden;
                 padding: 15px;
-                box-shadow: $mostshdw;
+                box-shadow: var(--mostshdw);
                 position: relative;
                 &:hover{
                     &::before{
@@ -544,8 +680,8 @@ nav{
                     padding: 12px 30px;
                     margin: 10px 0;
                     border-radius: 40px;
-                    box-shadow: $mostshdw;
-                    background: $allbg;
+                    box-shadow: var(--mostshdw);
+                    background: var(--allbg);
                     font-weight: 600;
                     text-decoration: none;
                     svg{
@@ -558,8 +694,8 @@ nav{
             .contact-right{
                 width: 50%;
                 border-radius: 20px;
-                box-shadow: $mostshdw;
-                background: $allbg;
+                box-shadow: var(--mostshdw);
+                background: var(--allbg);
                 padding: 40px 30px;
                 @media(max-width: 625px){
                     width: 100%;
@@ -579,10 +715,13 @@ nav{
                             padding: 8px 10px;
                             outline: none;
                             border-radius: 5px;
-                            border: 1px solid $blck;
-                            color: $blck;
+                            border: 1px solid var(--blck);
+                            color: var(--blck);
                             font-weight: 600;
                             background: transparent;
+                            &::placeholder{
+                                color: var(--blck);
+                            }
                         }
                         textarea{
                             resize: none;
@@ -595,7 +734,7 @@ nav{
                         column-gap: 10px;
                         button {
                             padding: 8px 13px;
-                            border: 1px solid $blck;
+                            border: 1px solid var(--blck);
                             border-radius: 4px;
                             background: transparent;
                             font-weight: 600;
